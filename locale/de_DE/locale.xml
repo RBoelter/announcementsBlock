@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+<locale name="de_DE" full_name="Deutsch">
+    <message key="plugins.blocks.announcements.title">Mitteilungen-Block</message>
+    <message key="plugins.blocks.announcements.desc">Dieses Plugin stellt Mitteilungen in der Sidebar bereit.</message>
+    <message key="plugins.blocks.announcements.amount">Anzahl der Mitteilungen (default: 2). Abgelaufene Mitteilungen werden per default nicht angezeigt.</message>
+</locale>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+<locale name="en_US" full_name="U.S. English">
+    <message key="plugins.blocks.announcements.title">Announcements Block</message>
+    <message key="plugins.blocks.announcements.desc">This plugin provides Announcements in the sidebar.</message>
+    <message key="plugins.blocks.announcements.amount">Number of announcements (default: 2). Expired announcements are not displayed by default.</message>
+</locale>
