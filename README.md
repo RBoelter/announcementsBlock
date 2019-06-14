@@ -11,5 +11,5 @@
 ![alt text](https://user-images.githubusercontent.com/7657717/59510190-5f429500-8eb3-11e9-95fe-dd085826c41f.png)
 
 
-#### Go to Settings->Website->Appearance and scroll down to Sidebar management. Drag the Twitter Plugin to the Sidebar:
+#### Go to Settings->Website->Appearance and scroll down to Sidebar management. Drag the Announcements Plugin to the Sidebar:
 ![alt text](https://user-images.githubusercontent.com/7657717/59510191-5f429500-8eb3-11e9-8767-e0f297d51e05.png)
