@@ -18,16 +18,12 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 
     public function getContents($templateMgr, $request = null)
     {
-        $request = Application::getRequest();
-        $journal = $request->getJournal();
-        $contextId = $request->getContext()->getId();
-        $announcementDao = DAORegistry::getDAO('AnnouncementDAO');
-        $amount = $this->getSetting($contextId, 'announcementsAmount');
-        $amount = ctype_digit($amount) ? intval($amount) : null;
-        if ($amount === null) {
-            $amount = 2;
-        }
-        $announcements =& $announcementDao->getNumAnnouncementsNotExpiredByAssocId(ASSOC_TYPE_JOURNAL, $journal->getId(), $amount);
+	    $request = Application::getRequest();
+	    $context = $request->getContext();
+	    $announcementDao = DAORegistry::getDAO('AnnouncementDAO');
+	    $amount = $this->getSetting($context->getId(), 'announcementsAmount');
+	    $amount = ctype_digit($amount) ? intval($amount) : 2;
+	    $announcements =& $announcementDao->getNumAnnouncementsNotExpiredByAssocId($context->getAssocType(), $context->getId(), $amount);
         $templateMgr->assign('announcementsSidebar', $announcements->toArray());
         return parent::getContents($templateMgr, $request);
     }
