@@ -21,10 +21,12 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 		$request = Application::getRequest();
 		$context = $request->getContext();
 		$announcementDao = DAORegistry::getDAO('AnnouncementDAO');
-		$amount = $this->getSetting($context->getId(), 'announcementsAmount');
-		$amount = ctype_digit($amount) ? intval($amount) : 2;
+		$amount = ctype_digit($this->getSetting($context->getId(), 'announcementsAmount')) ? intval($this->getSetting($context->getId(), 'announcementsAmount')) : 2;
 		$announcements =& $announcementDao->getNumAnnouncementsNotExpiredByAssocId($context->getAssocType(), $context->getId(), $amount);
 		$templateMgr->assign('announcementsSidebar', $announcements->toArray());
+		$templateMgr->assign('truncateNum', ctype_digit($this->getSetting($context->getId(), 'truncateNum')) ? intval($this->getSetting($context->getId(), 'truncateNum')) : null);
+		$templateMgr->assign('textAlign', $this->getSetting($context->getId(), 'textAlign') ? $this->getSetting($context->getId(), 'textAlign') : 'justify');
+		$templateMgr->assign('headlineSize', $this->getSetting($context->getId(), 'headlineSize') ? $this->getSetting($context->getId(), 'headlineSize') : 'h2');
 		return parent::getContents($templateMgr, $request);
 	}
 
@@ -64,6 +66,19 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 	{
 		switch ($request->getUserVar('verb')) {
 			case 'settings':
+				$templateMgr = TemplateManager::getManager($request);
+				$templateMgr->assign('headlineSizeOptions', [
+					'h2' => 'plugins.blocks.announcements.settings.h2',
+					'h3' => 'plugins.blocks.announcements.settings.h3',
+					'h4' => 'plugins.blocks.announcements.settings.h4',
+					'h5' => 'plugins.blocks.announcements.settings.h5'
+				]);
+				$templateMgr->assign('textAlignOptions', [
+					'left' => 'plugins.blocks.announcements.settings.left',
+					'right' => 'plugins.blocks.announcements.settings.right',
+					'center' => 'plugins.blocks.announcements.settings.center',
+					'justify' => 'plugins.blocks.announcements.settings.justify'
+				]);
 				$this->import('AnnouncementsBlockPluginSettingsForm');
 				$form = new AnnouncementsBlockPluginSettingsForm($this);
 				if (!$request->getUserVar('save')) {

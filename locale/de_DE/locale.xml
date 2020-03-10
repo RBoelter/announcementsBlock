@@ -3,5 +3,18 @@
 <locale name="de_DE" full_name="Deutsch">
     <message key="plugins.blocks.announcements.title">Mitteilungen-Block</message>
     <message key="plugins.blocks.announcements.desc">Dieses Plugin stellt Mitteilungen in der Sidebar bereit.</message>
-    <message key="plugins.blocks.announcements.amount">Anzahl der Mitteilungen (default: 2). Abgelaufene Mitteilungen werden per default nicht angezeigt.</message>
+    <message key="plugins.blocks.announcements.amount">Anzahl der Mitteilungen</message>
+    <message key="plugins.blocks.announcements.amount.desc">Abgelaufene Mitteilungen werden per default nicht angezeigt.</message>
+    <message key="plugins.blocks.announcements.truncateNum">Maximale Zeichenanzahl des Inhaltes</message>
+    <message key="plugins.blocks.announcements.truncateNum.desc">Falls leer, wird der komplette Inhalt der Kurzbeschreibung ausgegeben. Andernfalls eine Nummeer (z.B. 200) hier eintragen.</message>
+    <message key="plugins.blocks.announcements.textAlign">Ausrichtung des Inhaltes</message>
+    <message key="plugins.blocks.announcements.settings.left">Linksbündig</message>
+    <message key="plugins.blocks.announcements.settings.right">Rechtsbündig</message>
+    <message key="plugins.blocks.announcements.settings.center">Zentriert</message>
+    <message key="plugins.blocks.announcements.settings.justify">Blocksatz</message>
+    <message key="plugins.blocks.announcements.headlineSize">HTML Typ der Überschrift</message>
+    <message key="plugins.blocks.announcements.settings.h2">H2</message>
+    <message key="plugins.blocks.announcements.settings.h3">H3</message>
+    <message key="plugins.blocks.announcements.settings.h4">H4</message>
+    <message key="plugins.blocks.announcements.settings.h5">H5</message>
 </locale>

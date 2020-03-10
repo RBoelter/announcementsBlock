@@ -2,6 +2,19 @@
 <!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
 <locale name="en_US" full_name="U.S. English">
     <message key="plugins.blocks.announcements.title">Announcements Block</message>
-    <message key="plugins.blocks.announcements.desc">This plugin provides Announcements in the sidebar.</message>
-    <message key="plugins.blocks.announcements.amount">Number of announcements (default: 2). Expired announcements are not displayed by default.</message>
+    <message key="plugins.blocks.announcements.desc">This plugin provides sidebar announcements.</message>
+    <message key="plugins.blocks.announcements.amount">Number of announcements</message>
+    <message key="plugins.blocks.announcements.amount.desc">Expired announcements are not displayed by default.</message>
+    <message key="plugins.blocks.announcements.truncateNum">Content limitation (truncate)</message>
+    <message key="plugins.blocks.announcements.truncateNum.desc">If empty, the complete content of the short description is displayed. Otherwise, enter a number (e.g. 200).</message>
+    <message key="plugins.blocks.announcements.textAlign">Content alignment</message>
+    <message key="plugins.blocks.announcements.settings.left">left</message>
+    <message key="plugins.blocks.announcements.settings.right">right</message>
+    <message key="plugins.blocks.announcements.settings.center">center</message>
+    <message key="plugins.blocks.announcements.settings.justify">justify</message>
+    <message key="plugins.blocks.announcements.headlineSize">Headline HTML Type</message>
+    <message key="plugins.blocks.announcements.settings.h2">H2</message>
+    <message key="plugins.blocks.announcements.settings.h3">H3</message>
+    <message key="plugins.blocks.announcements.settings.h4">H4</message>
+    <message key="plugins.blocks.announcements.settings.h5">H5</message>
 </locale>
