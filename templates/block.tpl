@@ -9,8 +9,8 @@
 							{$announcement->getLocalizedTitle()|escape}
 						</a>
 					</h3>
-					<time class="block_announcements_article_date" style="font-weight: bold;" datetime="{$announcement->getDatePosted()}">
-						{$announcement->getDatePosted()|date_format:"%e. %B %Y"}
+					<time class="block_announcements_article_date" datetime="{$announcement->getDatePosted()}">
+						<strong>{$announcement->getDatePosted()|date_format:$dateFormatLong}</strong>
 					</time>
 					<p class="block_announcements_article_content" style="text-align: {$textAlign};">
 						{assign var="ann_desc" value=$announcement->getLocalizedDescriptionShort()|strip_unsafe_html|regex_replace:"/(<p>|<p [^>]*>)/":""|regex_replace:"/(<\\/p>)/":"<br />"}
