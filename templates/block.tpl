@@ -1,27 +1,34 @@
-{if $announcementsSidebar && sizeof($announcementsSidebar)>0}
+{if !empty($announcementsSidebar)}
 	<div class="pkp_block block_announcements">
-		<span class="title">{translate key="announcement.announcements"}</span>
+		<h2 class="title">{translate key="announcement.announcements"}</h2>
 		<div class="content">
-            {foreach name=announcements from=$announcementsSidebar item=announcement}
-				<article class="block_announcements_article" {if !$smarty.foreach.announcements.last}style="padding-bottom: 15px; border-bottom: 1px solid gray;" {/if}>
-					<a class="block_announcements_article_headline"
-					   href="{url router=$smarty.const.ROUTE_PAGE page="announcement" op="view" path=$announcement->getId()}">
-						<{$headlineSize}>{$announcement->getLocalizedTitle()|escape}</{$headlineSize}>
-					</a>
-					<time class="block_announcements_article_date" style="font-weight: bold;" datetime="{$announcement->getDatePosted()}">
-                        {$announcement->getDatePosted()|date_format:"%e. %B %Y"}
+			{foreach name=announcements from=$announcementsSidebar item=announcement}
+				<article class="block_announcements_article">
+					<h3 class="block_announcements_article_headline">
+						<a href="{url router=$smarty.const.ROUTE_PAGE page="announcement" op="view" path=$announcement->getId()}">
+							{$announcement->getLocalizedTitle()|escape}
+						</a>
+					</h3>
+					<time class="block_announcements_article_date" datetime="{$announcement->getDatePosted()}">
+						<strong>{$announcement->getDatePosted()|date_format:$dateFormatLong}</strong>
 					</time>
-					<p class="block_announcements_article_content" style="text-align: {$textAlign};">
-                        {assign var="ann_desc" value=$announcement->getLocalizedDescriptionShort()|strip_unsafe_html|regex_replace:"/(<p>|<p [^>]*>)/":""|regex_replace:"/(<\\/p>)/":"<br />"}
-                        {if $truncateNum}
-                            {assign var="truncateNum" value=$truncateNum|intval}
-                            {$ann_desc|truncate:$truncateNum}
-                        {else}
-                            {$ann_desc}
-                        {/if}
-					</p>
+					<div class="block_announcements_article_content" style="text-align: {$textAlign};">
+						{assign var="ann_desc" value=$announcement->getLocalizedDescriptionShort()|strip_unsafe_html}
+						{if $truncateNum}
+							{assign var="truncateNum" value=$truncateNum|intval}
+							{$ann_desc|truncate:$truncateNum}
+						{else}
+							{$ann_desc}
+						{/if}
+					</div>
 				</article>
-            {/foreach}
+			{/foreach}
 		</div>
+		<style type="text/css">
+			.block_announcements_article:not(:last-child) {
+				padding-bottom: 1.5em;
+				border-bottom: 1px solid;
+			}
+		</style>
 	</div>
 {/if}

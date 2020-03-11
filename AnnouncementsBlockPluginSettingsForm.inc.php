@@ -28,7 +28,6 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 		$this->setData('announcementsAmount', $this->plugin->getSetting($contextId, 'announcementsAmount') == null ? 2 : $this->plugin->getSetting($contextId, 'announcementsAmount'));
 		$this->setData('truncateNum', $this->plugin->getSetting($contextId, 'truncateNum'));
 		$this->setData('textAlign', $this->plugin->getSetting($contextId, 'textAlign') == null ? 'right' : $this->plugin->getSetting($contextId, 'textAlign'));
-		$this->setData('headlineSize', $this->plugin->getSetting($contextId, 'headlineSize') == null ? "h2" : $this->plugin->getSetting($contextId, 'headlineSize'));
 		parent::initData();
 	}
 
@@ -37,7 +36,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 	 */
 	public function readInputData()
 	{
-		$this->readUserVars(['announcementsAmount', 'truncateNum', 'textAlign', 'headlineSize']);
+		$this->readUserVars(['announcementsAmount', 'truncateNum', 'textAlign']);
 		parent::readInputData();
 	}
 
@@ -64,7 +63,6 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 		$this->plugin->updateSetting($contextId, 'announcementsAmount', $this->getData('announcementsAmount'));
 		$this->plugin->updateSetting($contextId, 'truncateNum', $this->getData('truncateNum'));
 		$this->plugin->updateSetting($contextId, 'textAlign', $this->getData('textAlign'));
-		$this->plugin->updateSetting($contextId, 'headlineSize', $this->getData('headlineSize'));
 		import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();
 		$notificationMgr->createTrivialNotification(

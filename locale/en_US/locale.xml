@@ -5,16 +5,11 @@
     <message key="plugins.blocks.announcements.desc">This plugin provides sidebar announcements.</message>
     <message key="plugins.blocks.announcements.amount">Number of announcements</message>
     <message key="plugins.blocks.announcements.amount.desc">Expired announcements are not displayed by default.</message>
-    <message key="plugins.blocks.announcements.truncateNum">Content limitation (truncate)</message>
-    <message key="plugins.blocks.announcements.truncateNum.desc">If empty, the complete content of the short description is displayed. Otherwise, enter a number (e.g. 200).</message>
+    <message key="plugins.blocks.announcements.truncateNum">Character Limit</message>
+    <message key="plugins.blocks.announcements.truncateNum.desc">Limit how many characters to show from the announcement (e.g. 200). If empty, the full short description will be displayed.</message>
     <message key="plugins.blocks.announcements.textAlign">Content alignment</message>
     <message key="plugins.blocks.announcements.settings.left">left</message>
     <message key="plugins.blocks.announcements.settings.right">right</message>
     <message key="plugins.blocks.announcements.settings.center">center</message>
     <message key="plugins.blocks.announcements.settings.justify">justify</message>
-    <message key="plugins.blocks.announcements.headlineSize">Headline HTML Type</message>
-    <message key="plugins.blocks.announcements.settings.h2">H2</message>
-    <message key="plugins.blocks.announcements.settings.h3">H3</message>
-    <message key="plugins.blocks.announcements.settings.h4">H4</message>
-    <message key="plugins.blocks.announcements.settings.h5">H5</message>
 </locale>
