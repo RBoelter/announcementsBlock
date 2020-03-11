@@ -12,15 +12,15 @@
 					<time class="block_announcements_article_date" datetime="{$announcement->getDatePosted()}">
 						<strong>{$announcement->getDatePosted()|date_format:$dateFormatLong}</strong>
 					</time>
-					<p class="block_announcements_article_content" style="text-align: {$textAlign};">
-						{assign var="ann_desc" value=$announcement->getLocalizedDescriptionShort()|strip_unsafe_html|regex_replace:"/(<p>|<p [^>]*>)/":""|regex_replace:"/(<\\/p>)/":"<br />"}
+					<div class="block_announcements_article_content" style="text-align: {$textAlign};">
+						{assign var="ann_desc" value=$announcement->getLocalizedDescriptionShort()|strip_unsafe_html}
 						{if $truncateNum}
 							{assign var="truncateNum" value=$truncateNum|intval}
 							{$ann_desc|truncate:$truncateNum}
 						{else}
 							{$ann_desc}
 						{/if}
-					</p>
+					</div>
 				</article>
 			{/foreach}
 		</div>
