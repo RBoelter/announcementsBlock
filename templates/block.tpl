@@ -12,7 +12,7 @@
 					<time class="block_announcements_article_date" datetime="{$announcement->getDatePosted()}">
 						<strong>{$announcement->getDatePosted()|date_format:$dateFormatLong}</strong>
 					</time>
-					<div class="block_announcements_article_content" style="text-align: {$textAlign};">
+					<div class="block_announcements_article_content">
 						{assign var="ann_desc" value=$announcement->getLocalizedDescriptionShort()|strip_unsafe_html}
 						{if $truncateNum}
 							{assign var="truncateNum" value=$truncateNum|intval}

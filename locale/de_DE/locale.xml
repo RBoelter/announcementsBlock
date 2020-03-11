@@ -7,9 +7,4 @@
     <message key="plugins.blocks.announcements.amount.desc">Abgelaufene Mitteilungen werden per default nicht angezeigt.</message>
     <message key="plugins.blocks.announcements.truncateNum">Maximale Zeichenanzahl des Inhaltes</message>
     <message key="plugins.blocks.announcements.truncateNum.desc">Falls leer, wird der komplette Inhalt der Kurzbeschreibung ausgegeben. Andernfalls eine Nummeer (z.B. 200) hier eintragen.</message>
-    <message key="plugins.blocks.announcements.textAlign">Ausrichtung des Inhaltes</message>
-    <message key="plugins.blocks.announcements.settings.left">Linksbündig</message>
-    <message key="plugins.blocks.announcements.settings.right">Rechtsbündig</message>
-    <message key="plugins.blocks.announcements.settings.center">Zentriert</message>
-    <message key="plugins.blocks.announcements.settings.justify">Blocksatz</message>
 </locale>

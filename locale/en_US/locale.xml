@@ -7,9 +7,4 @@
     <message key="plugins.blocks.announcements.amount.desc">Expired announcements are not displayed by default.</message>
     <message key="plugins.blocks.announcements.truncateNum">Character Limit</message>
     <message key="plugins.blocks.announcements.truncateNum.desc">Limit how many characters to show from the announcement (e.g. 200). If empty, the full short description will be displayed.</message>
-    <message key="plugins.blocks.announcements.textAlign">Content alignment</message>
-    <message key="plugins.blocks.announcements.settings.left">left</message>
-    <message key="plugins.blocks.announcements.settings.right">right</message>
-    <message key="plugins.blocks.announcements.settings.center">center</message>
-    <message key="plugins.blocks.announcements.settings.justify">justify</message>
 </locale>

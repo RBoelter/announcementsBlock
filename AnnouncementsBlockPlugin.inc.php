@@ -65,13 +65,6 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 	{
 		switch ($request->getUserVar('verb')) {
 			case 'settings':
-				$templateMgr = TemplateManager::getManager($request);
-				$templateMgr->assign('textAlignOptions', [
-					'left' => 'plugins.blocks.announcements.settings.left',
-					'right' => 'plugins.blocks.announcements.settings.right',
-					'center' => 'plugins.blocks.announcements.settings.center',
-					'justify' => 'plugins.blocks.announcements.settings.justify'
-				]);
 				$this->import('AnnouncementsBlockPluginSettingsForm');
 				$form = new AnnouncementsBlockPluginSettingsForm($this);
 				if (!$request->getUserVar('save')) {

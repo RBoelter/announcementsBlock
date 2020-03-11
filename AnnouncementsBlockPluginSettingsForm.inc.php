@@ -27,7 +27,6 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 		$contextId = Application::getRequest()->getContext()->getId();
 		$this->setData('announcementsAmount', $this->plugin->getSetting($contextId, 'announcementsAmount') == null ? 2 : $this->plugin->getSetting($contextId, 'announcementsAmount'));
 		$this->setData('truncateNum', $this->plugin->getSetting($contextId, 'truncateNum'));
-		$this->setData('textAlign', $this->plugin->getSetting($contextId, 'textAlign') == null ? 'right' : $this->plugin->getSetting($contextId, 'textAlign'));
 		parent::initData();
 	}
 
@@ -36,7 +35,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 	 */
 	public function readInputData()
 	{
-		$this->readUserVars(['announcementsAmount', 'truncateNum', 'textAlign']);
+		$this->readUserVars(['announcementsAmount', 'truncateNum']);
 		parent::readInputData();
 	}
 
@@ -62,7 +61,6 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 		$contextId = Application::getRequest()->getContext()->getId();
 		$this->plugin->updateSetting($contextId, 'announcementsAmount', $this->getData('announcementsAmount'));
 		$this->plugin->updateSetting($contextId, 'truncateNum', $this->getData('truncateNum'));
-		$this->plugin->updateSetting($contextId, 'textAlign', $this->getData('textAlign'));
 		import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();
 		$notificationMgr->createTrivialNotification(
