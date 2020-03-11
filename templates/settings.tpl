@@ -21,9 +21,6 @@
         {fbvFormSection title="plugins.blocks.announcements.textAlign"}
             {fbvElement id="textAlign" type="select" from=$textAlignOptions selected=$textAlign}
         {/fbvFormSection}
-        {fbvFormSection title="plugins.blocks.announcements.headlineSize"}
-            {fbvElement id="headlineSize" type="select" from=$headlineSizeOptions selected=$headlineSize}
-        {/fbvFormSection}
     {/fbvFormArea}
     {fbvFormButtons submitText="common.save"}
 </form>
