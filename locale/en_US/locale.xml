@@ -12,8 +12,4 @@
     <message key="plugins.blocks.announcements.settings.right">right</message>
     <message key="plugins.blocks.announcements.settings.center">center</message>
     <message key="plugins.blocks.announcements.settings.justify">justify</message>
-    <message key="plugins.blocks.announcements.settings.h2">H2</message>
-    <message key="plugins.blocks.announcements.settings.h3">H3</message>
-    <message key="plugins.blocks.announcements.settings.h4">H4</message>
-    <message key="plugins.blocks.announcements.settings.h5">H5</message>
 </locale>
