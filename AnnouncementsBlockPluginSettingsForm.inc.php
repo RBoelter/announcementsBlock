@@ -24,7 +24,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 	 */
 	public function initData()
 	{
-		$contextId = Application::getRequest()->getContext()->getId();
+		$contextId = Application::get()->getRequest()->getContext()->getId();
 		$this->setData('announcementsAmount', $this->plugin->getSetting($contextId, 'announcementsAmount') == null ? 2 : $this->plugin->getSetting($contextId, 'announcementsAmount'));
 		$this->setData('truncateNum', $this->plugin->getSetting($contextId, 'truncateNum'));
 		parent::initData();
@@ -55,16 +55,19 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 
 	/**
 	 * Save the settings
+	 * @param mixed ...$functionArgs
+	 * @return mixed|null
 	 */
-	public function execute()
+	public function execute(...$functionArgs)
 	{
-		$contextId = Application::getRequest()->getContext()->getId();
+		$request = Application::get()->getRequest();
+		$contextId = $request->getContext()->getId();
 		$this->plugin->updateSetting($contextId, 'announcementsAmount', $this->getData('announcementsAmount'));
 		$this->plugin->updateSetting($contextId, 'truncateNum', $this->getData('truncateNum'));
 		import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();
 		$notificationMgr->createTrivialNotification(
-			Application::getRequest()->getUser()->getId(),
+			$request->getUser()->getId(),
 			NOTIFICATION_TYPE_SUCCESS,
 			['contents' => __('common.changesSaved')]
 		);
