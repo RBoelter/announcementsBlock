@@ -1,4 +1,4 @@
-# Announcements Block Plugin for OJS 3
+# Announcements Block Plugin for OJS 3 [![Build Status](https://travis-ci.org/RBoelter/announcementsBlock.svg?branch=master)](https://travis-ci.org/RBoelter/announcementsBlock)
 
 
 #### Install the plugin via "Upload a new plugin" in the Plugin tab of the website settings or upload it directly to the Block Plugin folder (usually ojs-root/plugins/blocks).
