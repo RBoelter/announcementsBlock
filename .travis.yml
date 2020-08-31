@@ -18,6 +18,8 @@ env:
     - APPLICATION=ojs BRANCH=stable-3_2_1 TEST=pgsql
     - APPLICATION=omp BRANCH=stable-3_2_1 TEST=mysql
     - APPLICATION=omp BRANCH=stable-3_2_1 TEST=pgsql
+    - APPLICATION=ops BRANCH=stable-3_2_1 TEST=mysql
+    - APPLICATION=ops BRANCH=stable-3_2_1 TEST=pgsql
 
 install:
     # Prepare OJS/OMP environment
