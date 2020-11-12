@@ -24,7 +24,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 	 */
 	public function initData()
 	{
-		$contextId = Application::get()->getRequest()->getContext()->getId();
+		$contextId = Application::getRequest()->getContext()->getId();
 		$this->setData('announcementsAmount', $this->plugin->getSetting($contextId, 'announcementsAmount') == null ? 2 : $this->plugin->getSetting($contextId, 'announcementsAmount'));
 		$this->setData('truncateNum', $this->plugin->getSetting($contextId, 'truncateNum'));
 		parent::initData();
@@ -60,7 +60,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 	 */
 	public function execute(...$functionArgs)
 	{
-		$request = Application::get()->getRequest();
+		$request = Application::getRequest();
 		$contextId = $request->getContext()->getId();
 		$this->plugin->updateSetting($contextId, 'announcementsAmount', $this->getData('announcementsAmount'));
 		$this->plugin->updateSetting($contextId, 'truncateNum', $this->getData('truncateNum'));
