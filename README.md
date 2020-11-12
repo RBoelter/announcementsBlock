@@ -1,5 +1,11 @@
-# Announcements Block Plugin for OJS 3 [![Build Status](https://travis-ci.org/RBoelter/announcementsBlock.svg?branch=master)](https://travis-ci.org/RBoelter/announcementsBlock)
+# Announcements Block Plugin for OJS 3
 
+[![Build Status](https://travis-ci.org/RBoelter/announcementsBlock.svg?branch=master)](https://travis-ci.org/RBoelter/announcementsBlock)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/RBoelter/announcementsBlock?include_prereleases&label=latest%20release)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/RBoelter/announcementsBlock)
+![GitHub](https://img.shields.io/github/license/RBoelter/announcementsBlock)
+[![OJS-Version](https://img.shields.io/badge/pkp--ojs-3.2.1-brightgreen)](https://github.com/pkp/ojs/tree/stable-3_2_1)
+![GitHub All Releases](https://img.shields.io/github/downloads/RBoelter/announcementsBlock/total)
 
 #### Install the plugin via "Upload a new plugin" in the Plugin tab of the website settings or upload it directly to the Block Plugin folder (usually ojs-root/plugins/blocks).
 
