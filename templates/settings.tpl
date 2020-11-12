@@ -18,6 +18,9 @@
         {fbvFormSection title="plugins.blocks.announcements.truncateNum"}
             {fbvElement type="text" id="truncateNum" value=$truncateNum label='plugins.blocks.announcements.truncateNum.desc'}
         {/fbvFormSection}
+	    {fbvFormSection title="plugins.blocks.announcements.align" for="announcementsAlign"}
+	        {fbvElement type="select" name="announcementsAlign" id="announcementsAlign" from=$announcementsAlignItems translate="true" selected=$announcementsAlign label='plugins.blocks.announcements.align.desc'}
+	    {/fbvFormSection}
     {/fbvFormArea}
     {fbvFormButtons submitText="common.save"}
 </form>

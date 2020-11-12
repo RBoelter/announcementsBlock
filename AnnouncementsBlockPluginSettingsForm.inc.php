@@ -24,9 +24,21 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 	 */
 	public function initData()
 	{
-		$contextId = Application::get()->getRequest()->getContext()->getId();
-		$this->setData('announcementsAmount', $this->plugin->getSetting($contextId, 'announcementsAmount') == null ? 2 : $this->plugin->getSetting($contextId, 'announcementsAmount'));
+		$context = Application::get()->getRequest()->getContext();
+		$contextId = ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
+		$this->setData(
+			'announcementsAmount',
+			$this->plugin->getSetting($contextId, 'announcementsAmount') == null ? 2 : $this->plugin->getSetting($contextId, 'announcementsAmount')
+		);
 		$this->setData('truncateNum', $this->plugin->getSetting($contextId, 'truncateNum'));
+		$announcementsAlignItems = [
+			'left' => "plugins.blocks.announcements.align.left",
+			'right' => "plugins.blocks.announcements.align.right",
+			'center' => "plugins.blocks.announcements.align.center",
+			'justify' => "plugins.blocks.announcements.align.justify",
+		];
+		$this->setData('announcementsAlign', $this->plugin->getSetting($contextId, 'announcementsAlign'));
+		$this->setData('announcementsAlignItems', $announcementsAlignItems);
 		parent::initData();
 	}
 
@@ -35,7 +47,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 	 */
 	public function readInputData()
 	{
-		$this->readUserVars(['announcementsAmount', 'truncateNum']);
+		$this->readUserVars(['announcementsAmount', 'truncateNum', 'announcementsAlign']);
 		parent::readInputData();
 	}
 
@@ -50,6 +62,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 	{
 		$templateMgr = TemplateManager::getManager($request);
 		$templateMgr->assign('pluginName', $this->plugin->getName());
+
 		return parent::fetch($request, $template, $display);
 	}
 
@@ -61,9 +74,11 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 	public function execute(...$functionArgs)
 	{
 		$request = Application::get()->getRequest();
-		$contextId = $request->getContext()->getId();
+		$context = $request->getContext();
+		$contextId = ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
 		$this->plugin->updateSetting($contextId, 'announcementsAmount', $this->getData('announcementsAmount'));
 		$this->plugin->updateSetting($contextId, 'truncateNum', $this->getData('truncateNum'));
+		$this->plugin->updateSetting($contextId, 'announcementsAlign', $this->getData('announcementsAlign'));
 		import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();
 		$notificationMgr->createTrivialNotification(
@@ -71,6 +86,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 			NOTIFICATION_TYPE_SUCCESS,
 			['contents' => __('common.changesSaved')]
 		);
+
 		return parent::execute();
 	}
 }
