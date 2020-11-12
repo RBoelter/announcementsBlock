@@ -20,12 +20,20 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 	{
 		$request = Application::getRequest();
 		$context = $request->getContext();
+		$contextId = ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
 		$announcementDao = DAORegistry::getDAO('AnnouncementDAO');
-		$amount = ctype_digit($this->getSetting($context->getId(), 'announcementsAmount')) ? intval($this->getSetting($context->getId(), 'announcementsAmount')) : 2;
-		$announcements =& $announcementDao->getNumAnnouncementsNotExpiredByAssocId($context->getAssocType(), $context->getId(), $amount);
+		$amount = ctype_digit($this->getSetting($contextId, 'announcementsAmount')) ? intval($this->getSetting($contextId, 'announcementsAmount')) : 2;
+		$announcements = $announcementDao->getNumAnnouncementsNotExpiredByAssocId($context->getAssocType(), $contextId, $amount);
 		$templateMgr->assign('announcementsSidebar', $announcements->toArray());
-		$templateMgr->assign('truncateNum', ctype_digit($this->getSetting($context->getId(), 'truncateNum')) ? intval($this->getSetting($context->getId(), 'truncateNum')) : null);
-		$templateMgr->assign('textAlign', $this->getSetting($context->getId(), 'textAlign') ? $this->getSetting($context->getId(), 'textAlign') : 'justify');
+		$templateMgr->assign(
+			'truncateNum',
+			ctype_digit($this->getSetting($contextId, 'truncateNum')) ? intval($this->getSetting($contextId, 'truncateNum')) : null
+		);
+		$templateMgr->assign(
+			'textAlign',
+			$this->getSetting($contextId, 'announcementsAlign') ? $this->getSetting($contextId, 'announcementsAlign') : 'left'
+		);
+
 		return parent::getContents($templateMgr, $request);
 	}
 
@@ -49,7 +57,7 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 					array(
 						'verb' => 'settings',
 						'plugin' => $this->getName(),
-						'category' => 'blocks'
+						'category' => 'blocks',
 					)
 				),
 				$this->getDisplayName()
@@ -58,6 +66,7 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 			null
 		);
 		array_unshift($actions, $linkAction);
+
 		return $actions;
 	}
 
@@ -69,14 +78,17 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 				$form = new AnnouncementsBlockPluginSettingsForm($this);
 				if (!$request->getUserVar('save')) {
 					$form->initData();
+
 					return new JSONMessage(true, $form->fetch($request));
 				}
 				$form->readInputData();
 				if ($form->validate()) {
 					$form->execute();
+
 					return new JSONMessage(true);
 				}
 		}
+
 		return parent::manage($args, $request);
 	}
 }

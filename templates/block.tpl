@@ -1,4 +1,15 @@
 {if !empty($announcementsSidebar)}
+	<style type="text/css">
+		.block_announcements_article:not(:last-child) {
+			padding-bottom: 1.5em;
+			border-bottom: 1px solid;
+
+		}
+
+		.block_announcements_article {
+			text-align: {$textAlign};
+		}
+	</style>
 	<div class="pkp_block block_announcements">
 		<h2 class="title">{translate key="announcement.announcements"}</h2>
 		<div class="content">
@@ -24,11 +35,5 @@
 				</article>
 			{/foreach}
 		</div>
-		<style type="text/css">
-			.block_announcements_article:not(:last-child) {
-				padding-bottom: 1.5em;
-				border-bottom: 1px solid;
-			}
-		</style>
 	</div>
 {/if}
