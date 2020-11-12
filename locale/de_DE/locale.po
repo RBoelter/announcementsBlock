@@ -1,0 +1,35 @@
+msgid "plugins.blocks.announcements.title"
+msgstr "Mitteilungen-Block"
+
+msgid "plugins.blocks.announcements.desc"
+msgstr "Dieses Plugin stellt Mitteilungen in der Sidebar bereit."
+
+msgid "plugins.blocks.announcements.amount"
+msgstr "Anzahl der Mitteilungen"
+
+msgid "plugins.blocks.announcements.amount.desc"
+msgstr "Abgelaufene Mitteilungen werden per default nicht angezeigt."
+
+msgid "plugins.blocks.announcements.truncateNum"
+msgstr "Maximale Zeichenanzahl des Inhaltes"
+
+msgid "plugins.blocks.announcements.truncateNum.desc"
+msgstr "Falls leer, wird der komplette Inhalt der Kurzbeschreibung ausgegeben. Andernfalls eine Nummeer (z.B. 200) hier eintragen."
+
+msgid "plugins.blocks.announcements.align"
+msgstr "Textausrichtungen"
+
+msgid "plugins.blocks.announcements.align.desc"
+msgstr "Bitte Textausrichtung auswählen (Linksbündig ist voreingestellt)"
+
+msgid "plugins.blocks.announcements.align.left"
+msgstr "Links"
+
+msgid "plugins.blocks.announcements.align.right"
+msgstr "Rechts"
+
+msgid "plugins.blocks.announcements.align.center"
+msgstr "Zentriert"
+
+msgid "plugins.blocks.announcements.align.justify"
+msgstr "Blocktext"
