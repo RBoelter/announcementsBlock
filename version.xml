@@ -3,8 +3,8 @@
 <version>
     <application>announcementsBlock</application>
     <type>plugins.blocks</type>
-    <release>1.0.0.1</release>
-    <date>2020-08-31</date>
+    <release>1.0.0.2</release>
+    <date>2020-11-13</date>
     <lazy-load>1</lazy-load>
     <class>AnnouncementsBlockPlugin</class>
 </version>
