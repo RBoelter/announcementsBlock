@@ -1,6 +1,6 @@
 # Announcements Block Plugin for OJS 3
 
-[![Build Status](https://travis-ci.org/RBoelter/announcementsBlock.svg?branch=master)](https://travis-ci.org/RBoelter/announcementsBlock)
+![Announcements Block CI Test](https://github.com/RBoelter/announcementsBlock/workflows/Announcements%20Block%20CI%20Test/badge.svg?branch=master)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/RBoelter/announcementsBlock?include_prereleases&label=latest%20release)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/RBoelter/announcementsBlock)
 ![GitHub](https://img.shields.io/github/license/RBoelter/announcementsBlock)

@@ -1,4 +1,4 @@
-name: Announcements Block CI Test
+name: CI Tests
 on:
     push:
         branches:
