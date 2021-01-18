@@ -4,7 +4,9 @@
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/RBoelter/announcementsBlock?include_prereleases&label=latest%20release)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/RBoelter/announcementsBlock)
 ![GitHub](https://img.shields.io/github/license/RBoelter/announcementsBlock)
-[![OJS-Version](https://img.shields.io/badge/pkp--ojs-3.2.1-brightgreen)](https://github.com/pkp/ojs/tree/stable-3_2_1)
+[![OJS-Version](https://img.shields.io/badge/pkp--ojs-3.3-brightgreen)](https://github.com/pkp/ojs/tree/master)
+[![OMP-Version](https://img.shields.io/badge/pkp--omp-3.3-brightgreen)](https://github.com/pkp/omp/tree/master)
+[![OPS-Version](https://img.shields.io/badge/pkp--ops-3.3-brightgreen)](https://github.com/pkp/ops/tree/master)
 ![GitHub All Releases](https://img.shields.io/github/downloads/RBoelter/announcementsBlock/total)
 
 ### Installation
