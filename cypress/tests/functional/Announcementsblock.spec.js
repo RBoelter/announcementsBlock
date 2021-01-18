@@ -60,7 +60,7 @@ describe('Announcements Block plugin tests', function () {
 		cy.get('nav[class="app__nav"] a:contains("Announcements")').click();
 		cy.get('button[class="pkpButton"]:contains("Add Announcement")').click();
 		cy.wait(1000);
-		cy.get('div[class="modal"] input[id="announcement-descriptionShort-control-en_US"]').type('Automatic Test Announcement');
+		cy.get('div[class="modal"] input[id="announcement-title-control-en_US"]').type('Automatic Test Announcement');
 		cy.get('div[class="modal"] div[id="announcement-descriptionShort-control-en_US"]')
 			.invoke('html', '<p>This is an automatically written short description!</p>')
 			.focus();
