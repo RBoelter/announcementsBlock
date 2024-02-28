@@ -1,10 +1,11 @@
 <?php
 
-import('lib.pkp.classes.form.Form');
+namespace APP\plugins\blocks\announcementsBlock;
+
+use \PKP\classes\form\Form;
 
 class AnnouncementsBlockPluginSettingsForm extends Form
 {
-
 
 	public $plugin;
 
@@ -79,7 +80,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 		$this->plugin->updateSetting($contextId, 'announcementsAmount', $this->getData('announcementsAmount'));
 		$this->plugin->updateSetting($contextId, 'truncateNum', $this->getData('truncateNum'));
 		$this->plugin->updateSetting($contextId, 'announcementsAlign', $this->getData('announcementsAlign'));
-		import('classes.notification.NotificationManager');
+		// import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();
 		$notificationMgr->createTrivialNotification(
 			$request->getUser()->getId(),

@@ -1,6 +1,8 @@
 <?php
 
-import('lib.pkp.classes.plugins.BlockPlugin');
+namespace APP\plugins\blocks\announcementsBlock;
+
+use PKP\plugins\BlockPlugin;
 
 class AnnouncementsBlockPlugin extends BlockPlugin
 {
@@ -44,7 +46,8 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 			return $actions;
 		}
 		$router = $request->getRouter();
-		import('lib.pkp.classes.linkAction.request.AjaxModal');
+		use PKP\classes\linkAction\request\AjaxModal
+		// import('lib.pkp.classes.linkAction.request.AjaxModal');
 		$linkAction = new LinkAction(
 			'settings',
 			new AjaxModal(
@@ -74,7 +77,7 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 	{
 		switch ($request->getUserVar('verb')) {
 			case 'settings':
-				$this->import('AnnouncementsBlockPluginSettingsForm');
+				// $this->import('AnnouncementsBlockPluginSettingsForm');
 				$form = new AnnouncementsBlockPluginSettingsForm($this);
 				if (!$request->getUserVar('save')) {
 					$form->initData();
@@ -91,4 +94,8 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 
 		return parent::manage($args, $request);
 	}
+}
+
+if (!PKP_STRICT_MODE) {
+    class_alias('\APP\plugins\blocks\announcementsBlock\AnnouncementsBlockPlugin', '\AnnouncementsBlockPlugin');
 }
