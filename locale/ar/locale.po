@@ -1,0 +1,35 @@
+msgid "plugins.blocks.announcements.title"
+msgstr "كتلة الإعلانات"
+
+msgid "plugins.blocks.announcements.desc"
+msgstr "هذه الإضافة توفر الإعلانات على الشريط الجانبي."
+
+msgid "plugins.blocks.announcements.amount"
+msgstr "عدد الإعلانات"
+
+msgid "plugins.blocks.announcements.amount.desc"
+msgstr "الإعلانات منتهية الصلاحية تزال من العرض إفتراضياً."
+
+msgid "plugins.blocks.announcements.truncateNum"
+msgstr "العدد الأقصى للأحرف"
+
+msgid "plugins.blocks.announcements.truncateNum.desc"
+msgstr "تحديد إجمالي عدد الأحرف الظاهرة من الإعلان (مثلاً 200). عند تركه خالياً فإن الوصف الموجز بأكمله سيظهر للقارئ."
+
+msgid "plugins.blocks.announcements.align"
+msgstr "Text Alignment"
+
+msgid "plugins.blocks.announcements.align.desc"
+msgstr "Please select text alignment (left alignment is default)"
+
+msgid "plugins.blocks.announcements.align.left"
+msgstr "Left"
+
+msgid "plugins.blocks.announcements.align.right"
+msgstr "Right"
+
+msgid "plugins.blocks.announcements.align.center"
+msgstr "Center"
+
+msgid "plugins.blocks.announcements.align.justify"
+msgstr "Justify"
