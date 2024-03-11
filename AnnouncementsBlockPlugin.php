@@ -2,7 +2,14 @@
 
 namespace APP\plugins\blocks\announcementsBlock;
 
+use APP\facades\Repo;
+use PKP\db\DAORegistry;
+use APP\core\Application;
+use PKP\core\JSONMessage;
 use PKP\plugins\BlockPlugin;
+use PKP\linkAction\LinkAction;
+use PKP\linkAction\request\AjaxModal;
+use APP\plugins\blocks\announcementsBlock\AnnouncementsBlockPluginSettingsForm;
 
 class AnnouncementsBlockPlugin extends BlockPlugin
 {
@@ -23,10 +30,22 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 		$request = Application::get()->getRequest();
 		$context = $request->getContext();
 		$contextId = ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
-		$announcementDao = DAORegistry::getDAO('AnnouncementDAO');
+		
 		$amount = ctype_digit($this->getSetting($contextId, 'announcementsAmount')) ? intval($this->getSetting($contextId, 'announcementsAmount')) : 2;
-		$announcements = $announcementDao->getNumAnnouncementsNotExpiredByAssocId($context->getAssocType(), $contextId, $amount);
-		$templateMgr->assign('announcementsSidebar', $announcements->toArray());
+		
+		$announcements = Repo::announcement()->getCollector()
+			->filterByContextIds([$contextId])
+			->limit($amount)
+            ->offset(0)
+			->getMany();
+		$announcements = array_filter(
+			$announcements->toArray(),
+			function($a) {
+				return ($a->getDateExpire() == null || strtotime($a->getDateExpire()) > time());
+			}
+		);
+
+		$templateMgr->assign('announcementsSidebar', $announcements);
 		$templateMgr->assign(
 			'truncateNum',
 			ctype_digit($this->getSetting($contextId, 'truncateNum')) ? intval($this->getSetting($contextId, 'truncateNum')) : null
@@ -46,11 +65,10 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 			return $actions;
 		}
 		$router = $request->getRouter();
-		use PKP\classes\linkAction\request\AjaxModal
-		// import('lib.pkp.classes.linkAction.request.AjaxModal');
-		$linkAction = new LinkAction(
+		
+		$linkAction = new \PKP\linkAction\LinkAction(
 			'settings',
-			new AjaxModal(
+			new \PKP\linkAction\request\AjaxModal(
 				$router->url(
 					$request,
 					null,
@@ -77,8 +95,7 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 	{
 		switch ($request->getUserVar('verb')) {
 			case 'settings':
-				// $this->import('AnnouncementsBlockPluginSettingsForm');
-				$form = new AnnouncementsBlockPluginSettingsForm($this);
+				$form = new \APP\plugins\blocks\announcementsBlock\AnnouncementsBlockPluginSettingsForm($this);
 				if (!$request->getUserVar('save')) {
 					$form->initData();
 

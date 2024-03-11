@@ -2,9 +2,14 @@
 
 namespace APP\plugins\blocks\announcementsBlock;
 
+use APP\core\Application;
 use \PKP\classes\form\Form;
+use APP\template\TemplateManager;
+use APP\notification\NotificationManager;
+use PKP\form\validation\FormValidatorCSRF;
+use PKP\form\validation\FormValidatorPost;
 
-class AnnouncementsBlockPluginSettingsForm extends Form
+class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 {
 
 	public $plugin;
