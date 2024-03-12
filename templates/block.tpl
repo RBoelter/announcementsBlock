@@ -3,7 +3,6 @@
 		.block_announcements_article:not(:last-child) {
 			padding-bottom: 1.5em;
 			border-bottom: 1px solid;
-
 		}
 
 		.block_announcements_article {

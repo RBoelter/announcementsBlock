@@ -1,10 +1,16 @@
 <?php
 
-import('lib.pkp.classes.form.Form');
+namespace APP\plugins\blocks\announcementsBlock;
 
-class AnnouncementsBlockPluginSettingsForm extends Form
+use APP\core\Application;
+use \PKP\classes\form\Form;
+use APP\template\TemplateManager;
+use APP\notification\NotificationManager;
+use PKP\form\validation\FormValidatorCSRF;
+use PKP\form\validation\FormValidatorPost;
+
+class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 {
-
 
 	public $plugin;
 
@@ -79,7 +85,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 		$this->plugin->updateSetting($contextId, 'announcementsAmount', $this->getData('announcementsAmount'));
 		$this->plugin->updateSetting($contextId, 'truncateNum', $this->getData('truncateNum'));
 		$this->plugin->updateSetting($contextId, 'announcementsAlign', $this->getData('announcementsAlign'));
-		import('classes.notification.NotificationManager');
+		// import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();
 		$notificationMgr->createTrivialNotification(
 			$request->getUser()->getId(),
