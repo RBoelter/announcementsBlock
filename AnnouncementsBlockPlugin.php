@@ -1,8 +1,13 @@
 <?php
+
+namespace APP\plugins\blocks\announcementsBlock;
+
 use PKP\plugins\BlockPlugin;
 use PKP\linkAction\request\AjaxModal;
 use APP\core\Application;
 use PKP\announcement\Announcement;
+use PKP\linkAction\LinkAction;
+use PKP\core\JSONMessage;
 
 class AnnouncementsBlockPlugin extends BlockPlugin
 {
@@ -24,7 +29,7 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 		
 		$amount = ctype_digit((string)$this->getSetting($contextId, 'announcementsAmount')) ? intval($this->getSetting($contextId, 'announcementsAmount')) : 2;
 		
-		// Use Eloquent model for OJS 3.5 - NO usar toArray(), dejar como Collection de objetos
+		// Use Eloquent model for OJS 3.5
 		$announcements = Announcement::withContextIds([$contextId])
 			->withActiveByDate()
 			->limit($amount)
@@ -62,7 +67,7 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 	{
 		switch ($request->getUserVar('verb')) {
 			case 'settings':
-				require_once(__DIR__ . '/AnnouncementsBlockPluginSettingsForm.inc.php');
+				require_once(__DIR__ . '/AnnouncementsBlockPluginSettingsForm.php');
 				$form = new AnnouncementsBlockPluginSettingsForm($this);
 				if (!$request->getUserVar('save')) {
 					$form->initData();

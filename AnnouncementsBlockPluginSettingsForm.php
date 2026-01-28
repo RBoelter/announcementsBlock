@@ -1,4 +1,7 @@
 <?php
+
+namespace APP\plugins\blocks\announcementsBlock;
+
 use PKP\form\Form;
 use PKP\form\validation\FormValidatorPost;
 use PKP\form\validation\FormValidatorCSRF;
@@ -9,6 +12,7 @@ use APP\template\TemplateManager;
 class AnnouncementsBlockPluginSettingsForm extends Form
 {
 	public $plugin;
+	
 	public function __construct($plugin)
 	{
 		parent::__construct($plugin->getTemplateResource('settings.tpl'));
@@ -16,6 +20,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 		$this->addCheck(new FormValidatorPost($this));
 		$this->addCheck(new FormValidatorCSRF($this));
 	}
+	
 	/**
 	 * Load settings already saved in the database
 	 *
@@ -41,6 +46,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 		$this->setData('announcementsAlignItems', $announcementsAlignItems);
 		parent::initData();
 	}
+	
 	/**
 	 * Load data that was submitted with the form
 	 */
@@ -49,6 +55,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 		$this->readUserVars(['announcementsAmount', 'truncateNum', 'announcementsAlign']);
 		parent::readInputData();
 	}
+	
 	/**
 	 * Fetch any additional data needed for your form.
 	 *
@@ -62,6 +69,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 		$templateMgr->assign('pluginName', $this->plugin->getName());
 		return parent::fetch($request, $template, $display);
 	}
+	
 	/**
 	 * Save the settings
 	 * @param mixed ...$functionArgs
