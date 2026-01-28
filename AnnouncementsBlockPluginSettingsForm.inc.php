@@ -1,19 +1,14 @@
 <?php
-
-namespace APP\plugins\blocks\announcementsBlock;
-
-use APP\core\Application;
-use \PKP\classes\form\Form;
-use APP\template\TemplateManager;
-use APP\notification\NotificationManager;
-use PKP\form\validation\FormValidatorCSRF;
+use PKP\form\Form;
 use PKP\form\validation\FormValidatorPost;
+use PKP\form\validation\FormValidatorCSRF;
+use APP\notification\NotificationManager;
+use PKP\core\PKPApplication;
+use APP\template\TemplateManager;
 
-class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
+class AnnouncementsBlockPluginSettingsForm extends Form
 {
-
 	public $plugin;
-
 	public function __construct($plugin)
 	{
 		parent::__construct($plugin->getTemplateResource('settings.tpl'));
@@ -21,7 +16,6 @@ class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 		$this->addCheck(new FormValidatorPost($this));
 		$this->addCheck(new FormValidatorCSRF($this));
 	}
-
 	/**
 	 * Load settings already saved in the database
 	 *
@@ -30,7 +24,7 @@ class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 	 */
 	public function initData()
 	{
-		$context = Application::get()->getRequest()->getContext();
+		$context = PKPApplication::get()->getRequest()->getContext();
 		$contextId = ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
 		$this->setData(
 			'announcementsAmount',
@@ -47,7 +41,6 @@ class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 		$this->setData('announcementsAlignItems', $announcementsAlignItems);
 		parent::initData();
 	}
-
 	/**
 	 * Load data that was submitted with the form
 	 */
@@ -56,7 +49,6 @@ class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 		$this->readUserVars(['announcementsAmount', 'truncateNum', 'announcementsAlign']);
 		parent::readInputData();
 	}
-
 	/**
 	 * Fetch any additional data needed for your form.
 	 *
@@ -68,10 +60,8 @@ class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 	{
 		$templateMgr = TemplateManager::getManager($request);
 		$templateMgr->assign('pluginName', $this->plugin->getName());
-
 		return parent::fetch($request, $template, $display);
 	}
-
 	/**
 	 * Save the settings
 	 * @param mixed ...$functionArgs
@@ -79,20 +69,18 @@ class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 	 */
 	public function execute(...$functionArgs)
 	{
-		$request = Application::get()->getRequest();
+		$request = PKPApplication::get()->getRequest();
 		$context = $request->getContext();
 		$contextId = ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
 		$this->plugin->updateSetting($contextId, 'announcementsAmount', $this->getData('announcementsAmount'));
 		$this->plugin->updateSetting($contextId, 'truncateNum', $this->getData('truncateNum'));
 		$this->plugin->updateSetting($contextId, 'announcementsAlign', $this->getData('announcementsAlign'));
-		// import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();
 		$notificationMgr->createTrivialNotification(
 			$request->getUser()->getId(),
 			NOTIFICATION_TYPE_SUCCESS,
 			['contents' => __('common.changesSaved')]
 		);
-
 		return parent::execute();
 	}
 }
