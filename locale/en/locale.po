@@ -33,6 +33,3 @@ msgstr "Center"
 
 msgid "plugins.blocks.announcements.align.justify"
 msgstr "Justify"
-
-msgid "plugins.blocks.announcements.showall"
-msgstr "Show all announcements ..."

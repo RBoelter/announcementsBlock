@@ -1,0 +1,35 @@
+msgid "plugins.blocks.announcements.title"
+msgstr "Bloque de avisos"
+
+msgid "plugins.blocks.announcements.desc"
+msgstr "Este plugin proporciona avisos en la barra lateral."
+
+msgid "plugins.blocks.announcements.amount"
+msgstr "Número de avisos"
+
+msgid "plugins.blocks.announcements.amount.desc"
+msgstr "Los avisos caducados no se muestran por defecto."
+
+msgid "plugins.blocks.announcements.truncateNum"
+msgstr "Límite de caracteres"
+
+msgid "plugins.blocks.announcements.truncateNum.desc"
+msgstr "Limita cuántos caracteres mostrar del aviso (ej. 200). Si está vacío, se mostrará la descripción breve completa."
+
+msgid "plugins.blocks.announcements.align"
+msgstr "Alineación del texto"
+
+msgid "plugins.blocks.announcements.align.left"
+msgstr "Izquierda"
+
+msgid "plugins.blocks.announcements.align.right"
+msgstr "Derecha"
+
+msgid "plugins.blocks.announcements.align.center"
+msgstr "Centro"
+
+msgid "plugins.blocks.announcements.align.justify"
+msgstr "Justificado"
+
+msgid "plugins.blocks.announcements.align.desc"
+msgstr "Seleccione la alineación del texto (la alineación a la izquierda es la predeterminada)"

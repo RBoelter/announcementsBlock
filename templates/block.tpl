@@ -4,13 +4,8 @@
 			padding-bottom: 1.5em;
 			border-bottom: 1px solid;
 		}
-
 		.block_announcements_article {
 			text-align: {$textAlign};
-		}
-
-		.block_announcements #show-all{
-			font-style: italic;
 		}
 	</style>
 	<div class="pkp_block block_announcements">
@@ -19,15 +14,15 @@
 			{foreach name=announcements from=$announcementsSidebar item=announcement}
 				<article class="block_announcements_article">
 					<h3 class="block_announcements_article_headline">
-						<a href="{url router=$smarty.const.ROUTE_PAGE page="announcement" op="view" path=$announcement->getId()}">
-							{$announcement->getLocalizedTitle()|escape}
+						<a href="{url router=$smarty.const.ROUTE_PAGE page="announcement" op="view" path=$announcement->id}">
+							{$announcement->getLocalizedData('title')|escape}
 						</a>
 					</h3>
-					<time class="block_announcements_article_date" datetime="{$announcement->getDatePosted()}">
-						<strong>{$announcement->getDatePosted()|date_format:$dateFormatLong}</strong>
+					<time class="block_announcements_article_date" datetime="{$announcement->date_posted}">
+						<strong>{$announcement->date_posted|date_format:$dateFormatLong}</strong>
 					</time>
 					<div class="block_announcements_article_content">
-						{assign var="ann_desc" value=$announcement->getLocalizedDescriptionShort()|strip_unsafe_html}
+						{assign var="ann_desc" value=$announcement->getLocalizedData('descriptionShort')|strip_unsafe_html}
 						{if $truncateNum}
 							{assign var="truncateNum" value=$truncateNum|intval}
 							{$ann_desc|truncate:$truncateNum}
@@ -37,7 +32,6 @@
 					</div>
 				</article>
 			{/foreach}
-			<a id="show-all" href="{url router=$smarty.const.ROUTE_PAGE page="announcement"}">{translate key="plugins.blocks.announcements.showall"}</a>
 		</div>
 	</div>
 {/if}
