@@ -33,3 +33,6 @@ msgstr "Zentriert"
 
 msgid "plugins.blocks.announcements.align.justify"
 msgstr "Blocktext"
+
+msgid "plugins.blocks.announcements.showall"
+msgstr "Alle Mitteilungen anzeigen ..."

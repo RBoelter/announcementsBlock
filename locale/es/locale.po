@@ -33,3 +33,6 @@ msgstr "Justificado"
 
 msgid "plugins.blocks.announcements.align.desc"
 msgstr "Seleccione la alineación del texto (la alineación a la izquierda es la predeterminada)"
+
+msgid "plugins.blocks.announcements.showall"
+msgstr "Mostrar todos los anuncios ..."
