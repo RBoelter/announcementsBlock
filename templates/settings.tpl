@@ -11,7 +11,7 @@
 >
     <!-- Always add the csrf token to secure your form -->
     {csrf}
-    {fbvFormArea}
+    {fbvFormArea id="announcementsSettingsArea"}
         {fbvFormSection title="plugins.blocks.announcements.amount" }
             {fbvElement type="text" id="announcementsAmount" value=$announcementsAmount label='plugins.blocks.announcements.amount.desc'}
         {/fbvFormSection}
