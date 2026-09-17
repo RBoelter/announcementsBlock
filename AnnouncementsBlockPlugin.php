@@ -3,16 +3,15 @@
 namespace APP\plugins\blocks\announcementsBlock;
 
 use APP\facades\Repo;
-use PKP\db\DAORegistry;
 use APP\core\Application;
 use PKP\core\JSONMessage;
 use PKP\plugins\BlockPlugin;
 use PKP\linkAction\LinkAction;
 use PKP\linkAction\request\AjaxModal;
-use APP\plugins\blocks\announcementsBlock\AnnouncementsBlockPluginSettingsForm;
 
 class AnnouncementsBlockPlugin extends BlockPlugin
 {
+	public const DEFAULT_ANNOUNCEMENTS_AMOUNT = 2;
 
 	public function getDisplayName()
 	{
@@ -25,34 +24,41 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 		return __('plugins.blocks.announcements.desc');
 	}
 
+	/**
+	 * Settings are stored by context, so that each journal or press can
+	 * have different settings; site-wide settings live under CONTEXT_SITE.
+	 */
+	public function getContextId($context)
+	{
+		return ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
+	}
+
 	public function getContents($templateMgr, $request = null)
 	{
-		$request = Application::get()->getRequest();
-		$context = $request->getContext();
-		$contextId = ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
-		
-		$amount = ctype_digit($this->getSetting($contextId, 'announcementsAmount')) ? intval($this->getSetting($contextId, 'announcementsAmount')) : 2;
-		
+		$request ??= Application::get()->getRequest();
+		$contextId = $this->getContextId($request->getContext());
+
+		$rawAmount = $this->getSetting($contextId, 'announcementsAmount');
+		$amount = ctype_digit((string) $rawAmount) ? intval($rawAmount) : self::DEFAULT_ANNOUNCEMENTS_AMOUNT;
+
 		$announcements = Repo::announcement()->getCollector()
 			->filterByContextIds([$contextId])
+			->filterByActive()
 			->limit($amount)
-            ->offset(0)
 			->getMany();
-		$announcements = array_filter(
-			$announcements->toArray(),
-			function($a) {
-				return ($a->getDateExpire() == null || strtotime($a->getDateExpire()) > time());
-			}
-		);
 
-		$templateMgr->assign('announcementsSidebar', $announcements);
+		$templateMgr->assign('announcementsSidebar', $announcements->toArray());
+
+		$rawTruncateNum = $this->getSetting($contextId, 'truncateNum');
 		$templateMgr->assign(
 			'truncateNum',
-			ctype_digit($this->getSetting($contextId, 'truncateNum')) ? intval($this->getSetting($contextId, 'truncateNum')) : null
+			ctype_digit((string) $rawTruncateNum) ? intval($rawTruncateNum) : null
 		);
+
+		$align = $this->getSetting($contextId, 'announcementsAlign');
 		$templateMgr->assign(
 			'textAlign',
-			$this->getSetting($contextId, 'announcementsAlign') ? $this->getSetting($contextId, 'announcementsAlign') : 'left'
+			in_array($align, ['left', 'right', 'center', 'justify'], true) ? $align : 'left'
 		);
 
 		return parent::getContents($templateMgr, $request);
@@ -65,10 +71,10 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 			return $actions;
 		}
 		$router = $request->getRouter();
-		
-		$linkAction = new \PKP\linkAction\LinkAction(
+
+		$linkAction = new LinkAction(
 			'settings',
-			new \PKP\linkAction\request\AjaxModal(
+			new AjaxModal(
 				$router->url(
 					$request,
 					null,
@@ -95,7 +101,7 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 	{
 		switch ($request->getUserVar('verb')) {
 			case 'settings':
-				$form = new \APP\plugins\blocks\announcementsBlock\AnnouncementsBlockPluginSettingsForm($this);
+				$form = new AnnouncementsBlockPluginSettingsForm($this);
 				if (!$request->getUserVar('save')) {
 					$form->initData();
 

@@ -3,7 +3,6 @@
 namespace APP\plugins\blocks\announcementsBlock;
 
 use APP\core\Application;
-use \PKP\classes\form\Form;
 use APP\template\TemplateManager;
 use APP\notification\NotificationManager;
 use PKP\form\validation\FormValidatorCSRF;
@@ -30,12 +29,9 @@ class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 	 */
 	public function initData()
 	{
-		$context = Application::get()->getRequest()->getContext();
-		$contextId = ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
-		$this->setData(
-			'announcementsAmount',
-			$this->plugin->getSetting($contextId, 'announcementsAmount') == null ? 2 : $this->plugin->getSetting($contextId, 'announcementsAmount')
-		);
+		$contextId = $this->plugin->getContextId(Application::get()->getRequest()->getContext());
+		$amount = $this->plugin->getSetting($contextId, 'announcementsAmount');
+		$this->setData('announcementsAmount', $amount === null ? AnnouncementsBlockPlugin::DEFAULT_ANNOUNCEMENTS_AMOUNT : $amount);
 		$this->setData('truncateNum', $this->plugin->getSetting($contextId, 'truncateNum'));
 		$announcementsAlignItems = [
 			'left' => "plugins.blocks.announcements.align.left",
@@ -80,12 +76,10 @@ class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 	public function execute(...$functionArgs)
 	{
 		$request = Application::get()->getRequest();
-		$context = $request->getContext();
-		$contextId = ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
+		$contextId = $this->plugin->getContextId($request->getContext());
 		$this->plugin->updateSetting($contextId, 'announcementsAmount', $this->getData('announcementsAmount'));
 		$this->plugin->updateSetting($contextId, 'truncateNum', $this->getData('truncateNum'));
 		$this->plugin->updateSetting($contextId, 'announcementsAlign', $this->getData('announcementsAlign'));
-		// import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();
 		$notificationMgr->createTrivialNotification(
 			$request->getUser()->getId(),
