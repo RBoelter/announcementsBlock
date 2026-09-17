@@ -34,12 +34,13 @@ describe('Announcements Block plugin tests', function () {
 		cy.get('form[id="announcementsSettings"] button[id^="submitFormButton"]').click();
 		cy.waitJQuery();		// enable block in sidebar if disabled
 		cy.get('nav[class="app__nav"] a:contains("Website")').click();
-		cy.get('div[class*="pkpTabs--side"] button[id="setup-button"]').click();
-		cy.get('div[class*="pkpTabs--side"] #setup input[value="announcementsblockplugin"]')
+		cy.get('button[id="appearance-button"]').click();
+		cy.get('button[id="appearance-setup-button"]').click();
+		cy.get('div[id="appearance-setup"] input[value="announcementsblockplugin"]')
 			.then($btn => {
 				if ($btn.attr('checked') !== 'checked' && $btn.attr('checked') !== true) {
-					cy.get('div[class*="pkpTabs--side"] #setup input[value="announcementsblockplugin"]').check();
-					cy.get('div[class*="pkpTabs--side"] #setup div[class="pkpFormPage__buttons"] button[class="pkpButton"]').click();
+					cy.get('div[id="appearance-setup"] input[value="announcementsblockplugin"]').check();
+					cy.get('div[id="appearance-setup"] div[class*="pkpFormPage__footer"] button[class="pkpButton"]').click();
 				}
 			});
 	});
@@ -60,13 +61,9 @@ describe('Announcements Block plugin tests', function () {
 		cy.get('nav[class="app__nav"] a:contains("Announcements")').click();
 		cy.get('button[class="pkpButton"]:contains("Add Announcement")').click();
 		cy.wait(1000);
-		cy.get('div[class="modal"] input[id="announcement-title-control-en_US"]').type('Automatic Test Announcement');
-		cy.get('div[class="modal"] div[id="announcement-descriptionShort-control-en_US"]')
-			.invoke('html', '<p>This is an automatically written short description!</p>')
-			.focus();
-		cy.get('div[class="modal"] div[id="announcement-description-control-en_US"]')
-			.invoke('html', '<p>This is an automatically written long description!</p>')
-			.focus();
+		cy.get('div[class="modal"] input[id="announcement-title-control-en"]').type('Automatic Test Announcement');
+		cy.setTinyMceContent('announcement-descriptionShort-control-en', 'This is an automatically written short description!');
+		cy.setTinyMceContent('announcement-description-control-en', 'This is an automatically written long description!');
 		cy.wait(1000);
 		cy.get('div[class="modal"] button[label="Save"]').click()
 	});
