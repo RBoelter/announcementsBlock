@@ -7,6 +7,10 @@
 		.block_announcements_article {
 			text-align: {$textAlign};
 		}
+
+		.block_announcements #show-all {
+			font-style: italic;
+		}
 	</style>
 	<div class="pkp_block block_announcements">
 		<h2 class="title">{translate key="announcement.announcements"}</h2>
@@ -32,7 +36,7 @@
 					</div>
 				</article>
 			{/foreach}
-			<br><a href="{url router=$smarty.const.ROUTE_PAGE page="announcement"}">{translate key="plugins.blocks.announcements.showall"}</a>
+			<a id="show-all" href="{url router=$smarty.const.ROUTE_PAGE page="announcement"}">{translate key="plugins.blocks.announcements.showall"}</a>
 		</div>
 	</div>
 {/if}
