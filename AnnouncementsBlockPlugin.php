@@ -11,6 +11,8 @@ use PKP\core\JSONMessage;
 
 class AnnouncementsBlockPlugin extends BlockPlugin
 {
+	public const DEFAULT_ANNOUNCEMENTS_AMOUNT = 2;
+
 	public function getDisplayName()
 	{
 		return __('plugins.blocks.announcements.title');
@@ -21,25 +23,35 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 		return __('plugins.blocks.announcements.desc');
 	}
 	
+	/**
+	 * The number of announcements to show, falling back to the default when
+	 * the setting is unset or not a plain number.
+	 */
+	public function getAnnouncementsAmount($contextId): int
+	{
+		$amount = (string) $this->getSetting($contextId, 'announcementsAmount');
+		return ctype_digit($amount) ? intval($amount) : self::DEFAULT_ANNOUNCEMENTS_AMOUNT;
+	}
+
 	public function getContents($templateMgr, $request = null)
 	{
-		$request = Application::get()->getRequest();
-		$context = $request->getContext();
-		$contextId = ($context && $context->getId()) ? $context->getId() : 0;
-		
-		$amount = ctype_digit((string)$this->getSetting($contextId, 'announcementsAmount')) ? intval($this->getSetting($contextId, 'announcementsAmount')) : 2;
-		
-		// Use Eloquent model for OJS 3.5
+		$request ??= Application::get()->getRequest();
+		$contextId = $this->getCurrentContextId();
+
 		$announcements = Announcement::withContextIds([$contextId])
 			->withActiveByDate()
-			->limit($amount)
+			->limit($this->getAnnouncementsAmount($contextId))
 			->orderBy(Announcement::CREATED_AT, 'desc')
 			->get();
-		
+
 		$templateMgr->assign('announcementsSidebar', $announcements);
-		$templateMgr->assign('truncateNum', ctype_digit((string)$this->getSetting($contextId, 'truncateNum')) ? intval($this->getSetting($contextId, 'truncateNum')) : null);
-		$templateMgr->assign('textAlign', $this->getSetting($contextId, 'announcementsAlign') ? $this->getSetting($contextId, 'announcementsAlign') : 'left');
-		
+
+		$truncateNum = (string) $this->getSetting($contextId, 'truncateNum');
+		$templateMgr->assign('truncateNum', ctype_digit($truncateNum) ? intval($truncateNum) : null);
+
+		$align = $this->getSetting($contextId, 'announcementsAlign');
+		$templateMgr->assign('textAlign', in_array($align, ['left', 'right', 'center', 'justify'], true) ? $align : 'left');
+
 		return parent::getContents($templateMgr, $request);
 	}
 	
@@ -67,7 +79,6 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 	{
 		switch ($request->getUserVar('verb')) {
 			case 'settings':
-				require_once(__DIR__ . '/AnnouncementsBlockPluginSettingsForm.php');
 				$form = new AnnouncementsBlockPluginSettingsForm($this);
 				if (!$request->getUserVar('save')) {
 					$form->initData();

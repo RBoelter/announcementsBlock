@@ -30,12 +30,8 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 	 */
 	public function initData()
 	{
-		$context = PKPApplication::get()->getRequest()->getContext();
-		$contextId = ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
-		$this->setData(
-			'announcementsAmount',
-			$this->plugin->getSetting($contextId, 'announcementsAmount') == null ? 2 : $this->plugin->getSetting($contextId, 'announcementsAmount')
-		);
+		$contextId = $this->plugin->getCurrentContextId();
+		$this->setData('announcementsAmount', $this->plugin->getAnnouncementsAmount($contextId));
 		$this->setData('truncateNum', $this->plugin->getSetting($contextId, 'truncateNum'));
 		$announcementsAlignItems = [
 			'left' => "plugins.blocks.announcements.align.left",
@@ -79,8 +75,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 	public function execute(...$functionArgs)
 	{
 		$request = PKPApplication::get()->getRequest();
-		$context = $request->getContext();
-		$contextId = ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
+		$contextId = $this->plugin->getCurrentContextId();
 		$this->plugin->updateSetting($contextId, 'announcementsAmount', $this->getData('announcementsAmount'));
 		$this->plugin->updateSetting($contextId, 'truncateNum', $this->getData('truncateNum'));
 		$this->plugin->updateSetting($contextId, 'announcementsAlign', $this->getData('announcementsAlign'));
