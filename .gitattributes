@@ -4,6 +4,7 @@
 # dev-only tooling that has no business in a released plugin package.
 /.github export-ignore
 /.gitattributes export-ignore
+/.gitignore export-ignore
 /.editorconfig export-ignore
 /cypress export-ignore
 /.ddev export-ignore
