@@ -230,4 +230,22 @@ describe('Announcements Block plugin tests', function () {
 		cy.get('div[class*="block_announcements"] h3:contains("Amount Test 2")');
 		cy.get('div[class*="block_announcements"]').should('not.contain.text', 'Amount Test 1 (oldest)');
 	});
+
+	it('Falls back to the default announcement count when the field is cleared', function () {
+		// A cleared amount used to prefill as an empty field while the block
+		// silently rendered the default of 2. The form now shows the number
+		// that is actually in effect. The two prior tests left more than two
+		// active announcements behind, so the default is observable.
+		cy.login('admin', 'admin', 'publicknowledge');
+		openBlockSettings();
+		cy.get('form[id="announcementsSettings"] input[name="announcementsAmount"]').clear();
+		cy.get('form[id="announcementsSettings"] button[id^="submitFormButton"]').click();
+		cy.waitJQuery();
+
+		openBlockSettings();
+		cy.get('form[id="announcementsSettings"] input[name="announcementsAmount"]').should('have.value', '2');
+
+		cy.visit('/');
+		cy.get('div[class*="block_announcements"] article').should('have.length', 2);
+	});
 });
