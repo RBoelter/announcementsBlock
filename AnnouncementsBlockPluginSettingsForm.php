@@ -29,9 +29,8 @@ class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 	 */
 	public function initData()
 	{
-		$contextId = $this->plugin->getContextId(Application::get()->getRequest()->getContext());
-		$amount = $this->plugin->getSetting($contextId, 'announcementsAmount');
-		$this->setData('announcementsAmount', $amount === null ? AnnouncementsBlockPlugin::DEFAULT_ANNOUNCEMENTS_AMOUNT : $amount);
+		$contextId = $this->plugin->getCurrentContextId();
+		$this->setData('announcementsAmount', $this->plugin->getAnnouncementsAmount($contextId));
 		$this->setData('truncateNum', $this->plugin->getSetting($contextId, 'truncateNum'));
 		$announcementsAlignItems = [
 			'left' => "plugins.blocks.announcements.align.left",
@@ -76,7 +75,7 @@ class AnnouncementsBlockPluginSettingsForm extends \PKP\form\Form
 	public function execute(...$functionArgs)
 	{
 		$request = Application::get()->getRequest();
-		$contextId = $this->plugin->getContextId($request->getContext());
+		$contextId = $this->plugin->getCurrentContextId();
 		$this->plugin->updateSetting($contextId, 'announcementsAmount', $this->getData('announcementsAmount'));
 		$this->plugin->updateSetting($contextId, 'truncateNum', $this->getData('truncateNum'));
 		$this->plugin->updateSetting($contextId, 'announcementsAlign', $this->getData('announcementsAlign'));

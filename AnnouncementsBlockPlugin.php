@@ -25,26 +25,24 @@ class AnnouncementsBlockPlugin extends BlockPlugin
 	}
 
 	/**
-	 * Settings are stored by context, so that each journal or press can
-	 * have different settings; site-wide settings live under CONTEXT_SITE.
+	 * The number of announcements to show, falling back to the default when
+	 * the setting is unset or not a plain number.
 	 */
-	public function getContextId($context)
+	public function getAnnouncementsAmount($contextId): int
 	{
-		return ($context && $context->getId()) ? $context->getId() : CONTEXT_SITE;
+		$amount = (string) $this->getSetting($contextId, 'announcementsAmount');
+		return ctype_digit($amount) ? intval($amount) : self::DEFAULT_ANNOUNCEMENTS_AMOUNT;
 	}
 
 	public function getContents($templateMgr, $request = null)
 	{
 		$request ??= Application::get()->getRequest();
-		$contextId = $this->getContextId($request->getContext());
-
-		$rawAmount = $this->getSetting($contextId, 'announcementsAmount');
-		$amount = ctype_digit((string) $rawAmount) ? intval($rawAmount) : self::DEFAULT_ANNOUNCEMENTS_AMOUNT;
+		$contextId = $this->getCurrentContextId();
 
 		$announcements = Repo::announcement()->getCollector()
 			->filterByContextIds([$contextId])
 			->filterByActive()
-			->limit($amount)
+			->limit($this->getAnnouncementsAmount($contextId))
 			->getMany();
 
 		$templateMgr->assign('announcementsSidebar', $announcements->toArray());
