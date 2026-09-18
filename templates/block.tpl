@@ -32,6 +32,7 @@
 					</div>
 				</article>
 			{/foreach}
+			<br><a href="{url router=$smarty.const.ROUTE_PAGE page="announcement"}">{translate key="plugins.blocks.announcements.showall"}</a>
 		</div>
 	</div>
 {/if}

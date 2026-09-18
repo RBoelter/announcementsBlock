@@ -6,6 +6,7 @@ use PKP\form\Form;
 use PKP\form\validation\FormValidatorPost;
 use PKP\form\validation\FormValidatorCSRF;
 use APP\notification\NotificationManager;
+use PKP\notification\Notification;
 use PKP\core\PKPApplication;
 use APP\template\TemplateManager;
 
@@ -86,7 +87,7 @@ class AnnouncementsBlockPluginSettingsForm extends Form
 		$notificationMgr = new NotificationManager();
 		$notificationMgr->createTrivialNotification(
 			$request->getUser()->getId(),
-			NOTIFICATION_TYPE_SUCCESS,
+			Notification::NOTIFICATION_TYPE_SUCCESS,
 			['contents' => __('common.changesSaved')]
 		);
 		return parent::execute();
