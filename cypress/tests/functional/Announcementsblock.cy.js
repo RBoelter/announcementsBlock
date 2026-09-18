@@ -45,6 +45,21 @@ describe('Announcements Block plugin tests', function () {
 			});
 	});
 
+	it('Saving the plugin settings succeeds without a server error', function () {
+		// execute() stores the values and then raises the success notification.
+		// If that second step throws, the modal reports a failed save although
+		// the values were persisted - which is exactly what broke on OJS 3.5
+		// when the global NOTIFICATION_TYPE_SUCCESS constant disappeared.
+		cy.login('admin', 'admin', 'publicknowledge');
+		cy.intercept('POST', '**/settings-plugin-grid/manage*').as('saveSettings');
+		openBlockSettings();
+		cy.get('form[id="announcementsSettings"] button[id^="submitFormButton"]').click();
+		cy.wait('@saveSettings').then(({response}) => {
+			expect(response.statusCode).to.eq(200);
+			expect(response.body.status).to.eq(true);
+		});
+	});
+
 	it('Enable Announcements', function () {
 		//cy.login('admin', 'admin', 'publicknowledge');
 		cy.login('admin', 'admin', 'publicknowledge');
@@ -73,6 +88,17 @@ describe('Announcements Block plugin tests', function () {
 		cy.get('div[class*="block_announcements"]');
 		cy.get('div[class*="block_announcements"] h3:contains("Automatic Test Announcement")');
 		cy.get('div[class*="block_announcements"] p:contains("This is an automatically written short description!")');
+	});
+
+	it('Links to the full announcements page', function () {
+		// Regression test: the 3.5 port dropped this link (issue #11).
+		cy.visit('/');
+		cy.get('div[class*="block_announcements"] a#show-all')
+			.should('contain.text', 'Show all announcements')
+			.and('have.attr', 'href')
+			.and('match', /\/announcement$/);
+		cy.get('div[class*="block_announcements"] a#show-all').click();
+		cy.location('pathname').should('match', /\/announcement$/);
 	});
 
 	function openBlockSettings() {
@@ -201,5 +227,23 @@ describe('Announcements Block plugin tests', function () {
 		cy.get('div[class*="block_announcements"] h3:contains("Amount Test 3 (newest)")');
 		cy.get('div[class*="block_announcements"] h3:contains("Amount Test 2")');
 		cy.get('div[class*="block_announcements"]').should('not.contain.text', 'Amount Test 1 (oldest)');
+	});
+
+	it('Falls back to the default announcement count when the field is cleared', function () {
+		// A cleared amount used to prefill as an empty field while the block
+		// silently rendered the default of 2. The form now shows the number
+		// that is actually in effect. The two prior tests left more than two
+		// active announcements behind, so the default is observable.
+		cy.login('admin', 'admin', 'publicknowledge');
+		openBlockSettings();
+		cy.get('form[id="announcementsSettings"] input[name="announcementsAmount"]').clear();
+		cy.get('form[id="announcementsSettings"] button[id^="submitFormButton"]').click();
+		cy.waitJQuery();
+
+		openBlockSettings();
+		cy.get('form[id="announcementsSettings"] input[name="announcementsAmount"]').should('have.value', '2');
+
+		cy.visit('/');
+		cy.get('div[class*="block_announcements"] article').should('have.length', 2);
 	});
 });
